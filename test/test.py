@@ -15,7 +15,11 @@ import cv2
 import pytesseract
 # @https://github.com/tesseract-ocr/tessdoc
 # @https://github.com/UB-Mannheim/tesseract/wiki
+# @https://github.com/tesseract-ocr/tessdata/blob/main/kor.traineddata
+
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\sooyeon Kang\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
+os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata" 
+# 한글 언어 모델을 위한 훈련 데이터 경로 강제 지정
 
 
 def test():
@@ -49,10 +53,17 @@ def test():
                 processedImage = ocrfactory.setPreprocessedImage()
                 # OCR 전처리 파이프라인 실행
 
-                cv2.imshow("Processed", processedImage)
-                cv2.waitKey(0)
-                # 전처리 결과 이미지 확인
-                # cv2.destroyAllWindows()
+                if processedImage is not None:
+                    # 전처리 시 에러가 발생하거나 인식에 실패하여 Null이 아닌 경우
+                   cv2.imshow("Processed", processedImage)
+                   cv2.waitKey(0)
+                   cv2.destroyAllWindows()
+                   # 전처리 결과 이미지 확인
+                else:
+                    raise NotImplementedError   
+                
+                ocrText = ocrfactory.getPreprocessedImage()
+                print(f"OCR 추출 결과: \n{ocrText}")
                 
                 break
                 # 테스트 목적이므로 첫 번째 이미지만 처리 후 break

@@ -15,7 +15,7 @@ class OCRImageFactory:
         # PIL.Image.Image 객체 형식의 스캔본(초본) 이미지
 
     def setPreprocessedImage(self) -> AbstractOCRImage:
-        """전처리(preprocess), 이진화(binarize), 후처리(mophology)를 수행하고 최종 이진 이미지를 반환하는 구체 메서드"""
+        """전처리(preprocess), 이진화(binarize), 후처리(mophology)를 수행하고 이진 이미지를 반환하는 실행 메서드"""
 
         # 흐림 블러링, 흑백 변환
         preprocesser = PreprocessImage(self.scanImage)
@@ -25,7 +25,11 @@ class OCRImageFactory:
         binarizer = BinarizeImage(blurredImageArray)
         binarizedImage = binarizer.preprocessImageObject()
 
-        charsExtracter = RecognizeOpticalChars(binarizedImage)
+        return binarizedImage
+
+    def getPreprocessedImage(self) -> AbstractOCRImage:
+        """이진 이미지 객체에서 추출한 텍스트를 반환하는 실행 메서드"""
+        charsExtracter = RecognizeOpticalChars(self.scanImage)
         ocrText = charsExtracter.preprocessImageObject()
 
-        return binarizedImage, ocrText
+        return ocrText

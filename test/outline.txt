@@ -1,39 +1,35 @@
 문제의 소재
-    1. 발급한 주민등록초본 pdf, tif, png(해상도 최대 600bpi) 스캔 시 우측 상단의 QR코드 인식 오류 발생하는 경우 2,000건 중 600건 가량 수기 등록 _ 종합상담 화면과 연동
-    2. 대안으로 QR스캔이 아닌 OCR 이미지 검출을 통해 채무자, 주민등록번호, 주소지(주소불명자 또는 주소변경 이력 파악), 발급일자 텍스트 엑셀 파일로 이관
-    3. 앞으로 2,000건에서 3배인 6,000건 발급할 예정
+[1] 발급한 주민등록초본 pdf, tif, png(해상도 최대 600bpi) 스캔 시 우측 상단의 QR코드 인식 오류 발생하는 경우 2,000건 중 600건 가량 수기 등록 _ 종합상담 화면과 연동
+[2] 대안으로 QR스캔이 아닌 OCR 이미지 검출을 통해 채무자, 주민등록번호, 주소지(주소불명자 또는 주소변경 이력 파악), 발급일자 텍스트 엑셀 파일로 이관
+[3] 앞으로 2,000건에서 3배인 6,000건 발급 및 지속적 발급량 증가 예정
 
 대안
-    1. 주민등록초본 정보 추출기
-    2. 스캔된 정보를 자동 추출
-    3. 로컬 환경에서 처리하며, 서버나 API호출 없어야
+[1] 주민등록초본 정보 추출기
+[2] 스캔된 정보를 자동 추출
+[3] 로컬 환경에서 처리하며, 서버나 API호출 없어야
 
 기능
-    1. 파일 업로드(확장자 선택)
-    2. OCR 문자 인식
-        Tesseract
-        EasyOCR
-        PaddleOCR
-    3. 데이터 정규화
-    : 불완전한 텍스트 Rgex활용하여 필터링
-    4. GUI
+[1] 파일 업로드(확장자 선택)
+[2] OCR 문자 인식
+    Tesseract
+    EasyOCR
+    PaddleOCR
+[3] 데이터 정규화
+    불완전한 텍스트 Rgex활용하여 필터링
+[4] GUI
     
-인식 대상
-    1. 발급일자
-    2. 초본명
-    3. 초본생년월일
-    4. 채무자명
-    5. 채무자상태명
-    6. 전입일자
-    7. 변동일자
-    8. 변동사유
-
-엑셀 파일 컬럼 순서
+인식 대상(엑셀 파일 컬럼 순서)
+[1] 발급일자
+[2] 초본명
+[3] 초본생년월일
+[4] 채무자명
+[5] 채무자상태명
+[6] 전입일자
+[7] 변동일자
+[8] 변동사유
 
 레퍼런스
-https://builtin.com/data-science/python-ocr
-https://github.com/rkdgg0/DevelopmentOfHangeulOCR
-
-https://github.com/rkdgg0/DevelopmentOfHangeulOCR?tab=readme-ov-file
-https://git-lfs.com/
-
+[1] https://builtin.com/data-science/python-ocr
+[2] https://github.com/rkdgg0/DevelopmentOfHangeulOCR
+[3] https://github.com/rkdgg0/DevelopmentOfHangeulOCR?tab=readme-ov-file
+[4] https://git-lfs.com/
