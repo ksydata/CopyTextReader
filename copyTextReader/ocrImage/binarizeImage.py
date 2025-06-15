@@ -9,7 +9,7 @@ class BinarizeImage(AbstractOCRImage):
     def __init__(self, imageArray: numpy.ndarray):
         self.imageArray = imageArray
 
-    def preprocessImageObject(self):
+    def preprocessImageObject(self) -> numpy.array:
         """이진화 전처리 및 모폴로지 후처리(글자 형상 보정, 잡티 제거)를 수행하는 메서드"""
 
         _, binaryImage = cv2.threshold(

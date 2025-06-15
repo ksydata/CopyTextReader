@@ -14,6 +14,16 @@
     Tesseract
     EasyOCR
     PaddleOCR
+
+            ┌─────────────────────┐
+            │ AbstractOCRImage    │
+            │   preprocessImage() │
+            └─────────────────────┘
+              ▲                ▲
+    ┌─────────┴────────┐   ┌───┴──────────────┐
+    │ TesseractOCR     │   │ HangeulOCREngine │
+    └──────────────────┘   └──────────────────┘
+
 [3] 데이터 정규화
     불완전한 텍스트 Rgex활용하여 필터링
 [4] GUI

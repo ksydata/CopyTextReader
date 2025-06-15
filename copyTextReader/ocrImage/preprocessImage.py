@@ -9,7 +9,7 @@ class PreprocessImage(AbstractOCRImage):
     def __init__(self, scanImage: Image.Image):
         self.scanImage = scanImage
 
-    def preprocessImageObject(self):
+    def preprocessImageObject(self) -> numpy.array:
         """이진화 전처리를 수행하는 메서드 """
 
         imageArray = numpy.array(self.scanImage)

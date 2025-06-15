@@ -23,9 +23,9 @@ os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata"
 
 
 def test():
-    folderPath = input("테스트할 폴더 경로를 입력하세요: ").strip()
-    # C:\copyTextReader\data
-
+    folderPath = input("테스트할 폴더 경로를 입력하세요: ").strip() 
+    # C:/copyTextReader/data
+    saveFilePath = "C:/copyTextReader/data/test.png"
     if not os.path.isdir(folderPath):
         print(f"{folderPath}는 유효한 폴더 경로가 아닙니다.")
         return
@@ -39,11 +39,11 @@ def test():
             images = loader.uploadData()
             print(f"{extension} 확장자에서 {len(images)}개의 이미지 로딩 성공")
         
-            # 샘플 이미지 OS의 뷰어로 열림
             # if images:
                 # print("첫 번째 이미지 미리보기를 실행합니다.")
                 # images[0].show()  
                 # image.save("privewSample.jpg")
+            # [생략] 샘플 이미지 OS의 뷰어로 열림
             
             for image in images:
             # for index, image in enumerate(images):
@@ -53,19 +53,26 @@ def test():
                 processedImage = ocrfactory.setPreprocessedImage()
                 # OCR 전처리 파이프라인 실행
 
+                # resizer = ResizeImage(processedImage, scale = 2.0)
+                # resizedImage = resizer.preprocessImageObject()
+                # [생략] 이미지 사이즈 변경
+
                 if processedImage is not None:
                     # 전처리 시 에러가 발생하거나 인식에 실패하여 Null이 아닌 경우
                    cv2.imshow("Processed", processedImage)
                    cv2.waitKey(0)
                    cv2.destroyAllWindows()
                    # 전처리 결과 이미지 확인
+                   # cv2.imwrite(saveFilePath, processedImage)
+                   # 전처리 결과 이미지 로컬에 저장
+                   
                 else:
-                    raise NotImplementedError   
+                    raise ValueError("")
                 
                 ocrText = ocrfactory.getPreprocessedImage()
                 print(f"OCR 추출 결과: \n{ocrText}")
                 
-                break
+                # break
                 # 테스트 목적이므로 첫 번째 이미지만 처리 후 break
 
         except Exception as e:
