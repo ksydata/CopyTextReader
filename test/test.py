@@ -21,14 +21,19 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Users\sooyeon Kang\AppData\Local\Pr
 os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata" 
 # 한글 언어 모델을 위한 훈련 데이터 경로 강제 지정
 
+from ultralytics import YOLO
+from tensorflow import keras
+from keras.models import load_model
+
 
 def test():
     folderPath = input("테스트할 폴더 경로를 입력하세요: ").strip() 
     # C:/copyTextReader/data
-    saveFilePath = "C:/copyTextReader/data/test.png"
+    # saveFilePath = "C:/copyTextReader/data/test.png"
     if not os.path.isdir(folderPath):
-        print(f"{folderPath}는 유효한 폴더 경로가 아닙니다.")
+        print(f"{folderPath}는 유효한 폴더 경로가 아닙니다.").strip() 
         return
+    ocrEngine = input("OCR 모델 엔진을 선택하세요: ")
 
     fileExtensions: List = [".pdf", ".tif", ".jpg", ".png"]
     
@@ -69,7 +74,7 @@ def test():
                 else:
                     raise ValueError("")
                 
-                ocrText = ocrfactory.getPreprocessedImage()
+                ocrText = ocrfactory.getPreprocessedImage(ocrEngine)
                 print(f"OCR 추출 결과: \n{ocrText}")
                 
                 # break
