@@ -1,6 +1,8 @@
 # ./copyTextReader/ocrImage/recognizeOpticalKorean.py
 
 from copyTextReader.abstractClass.abstractOCRImage import AbstractOCRImage
+from copyTextReader.ocrImage.hangeulOCR import HangeulOCR
+
 import numpy
 import cv2
 import os
@@ -12,36 +14,39 @@ from ultralytics import YOLO
 
 
 class RecognizeOpticalKorean(AbstractOCRImage):
-    """YOLOv8 & Keras ResNet 기반 한글 OCR 모델(YOLO 기반)을 활용한 문자 검출 및 인식 클래스"""
-    def __init__(self, processedImage: numpy.ndarray, clonePath: str):
+    """YOLOv8 & Keras ResNet 기반 한글 OCR 모델(YOLO 기반)을 활용한 문자 검출 및 인식 클래스
+    
+    YOLO(Bounding Box): 글자(자모, 단어 등) 위치 탐지 
+    ResNet(ㄱ, ㄴ, ㄷ 등): 탐지된 글자 영역 분류 
+    """
+    
+    def __init__(self, processedImage: numpy.ndarray, dependencyPath: str):
         """
         Parameters
         ----------
         processedImage: numpy.ndarray
             전처리된 이미지 (흑백/이진화 처리된 이미지)
-        clonePath: str
+        dependencyPath : str
             git clone 받은 DevelopmentOfHangeulOCR 경로
         """
         self.processedImage = processedImage
-        self.koreanOCRPath = clonePath
-        self.YOLOModelPath = os.path.join(
-            self.koreanOCRPath, "YOLOv8x_best.pt")
+        self.dependencyPath = dependencyPath
+        self.YOLOModelPath = os.path.join(self.dependencyPath, "YOLOv8x_best.pt")
+        self.ResNetModelPath = os.path.join(self.dependencyPath, "best_ResNet_consonants_model.h5")
         # 모델 가중치 경로
         # C:/Users/sooyeon Kang/DevelopmentOfHangeulOCR | C:/copyTextReader/dependency
 
         self.koreanOCR = None  
-        # 한글 OCR 객체
+        # 한글 OCR 객체 초기화
         self._loadKoreanOCR()
 
     def _loadKoreanOCR(self):
-        """DevelopmentOfHangeulOCR 내 HangeulOCR 클래스 import 및 객체 생성하는 메서드"""
-        import sys
-        if self.koreanOCRPath not in sys.path:
-            sys.path.append(self.koreanOCRPath)
-
-        # inference.py 내 HangeulOCR.class 정의
-        from inference import HangeulOCR
-        self.koreanOCR = HangeulOCR(model_path=self.YOLOModelPath)
+        """
+        기존에 DevelopmentOfHangeulOCR 프로젝트에서 HangeulOCR 클래스를 import 했으나,
+        외부 프로젝트가 없으므로, 내부에 구현한 HangeulOCR 클래스를 직접 사용합니다.
+        """
+        self.koreanOCR = self.HangeulOCR(
+            self.YOLOModelPath, self.ResNetModelPath)
         # YOLOv8(YOLOv8x_best.pt)으로 문자 영역 탐지
         # ResNet(best_ResNet_consonants_model.h5)으로 자음 인식
         # 다시 조합해 한글을 완성
@@ -54,3 +59,9 @@ class RecognizeOpticalKorean(AbstractOCRImage):
         ocrText = self.koreanOCR.run(pillowImage)
 
         return ocrText
+    
+"""
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: OCRImageFactory.__init__() missing 2 required positional arguments: 'ocrEngine' and 'dependencyPath'
+"""

@@ -22,8 +22,10 @@ os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata"
 # 한글 언어 모델을 위한 훈련 데이터 경로 강제 지정
 
 from ultralytics import YOLO
-from tensorflow import keras
-from keras.models import load_model
+from tensorflow.python.keras.models import load_model
+# python -m pip install --upgrade typing_extensions
+# from tensorflow import keras
+# from keras.models import load_model
 
 
 def test():
