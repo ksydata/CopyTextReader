@@ -59,9 +59,3 @@ class RecognizeOpticalKorean(AbstractOCRImage):
         ocrText = self.koreanOCR.run(pillowImage)
 
         return ocrText
-    
-"""
-=== 확장자 .jpg 테스트 중 ===
-.jpg 확장자에서 3개의 이미지 로딩 성공
-.jpg 처리 중 오류: OCRImageFactory.__init__() missing 2 required positional arguments: 'ocrEngine' and 'dependencyPath'
-"""

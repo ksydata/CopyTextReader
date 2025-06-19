@@ -12,13 +12,14 @@ class OCRImageFactory:
     """이미지 전처리 후 이진화 및 후처리 프로세스를 수행하는 팩토리 클래스"""
 
     def __init__(self, 
-                 processedImage: Image.Image, 
+                 scanImage, 
                  ocrEngine: str, 
                  dependencyPath: str):
+        self.scanImage = scanImage            
         # PIL.Image.Image 객체 형식의 스캔본(초본) 이미지
-        self.OCREngine = ocrEngine
-        self.processedImage = None  
+        self.processedImage = None
         # 전처리 결과 저장 필드 추가
+        self.OCREngine = ocrEngine
         self.dependencyPath = dependencyPath
         
     def setPreprocessedImage(self) -> AbstractOCRImage:
@@ -32,9 +33,9 @@ class OCRImageFactory:
         binarizer = BinarizeImage(blurredImageArray)
         binarizedImage = binarizer.preprocessImageObject()
 
-        return binarizedImage
+        self.processedImage = binarizedImage
+        return self.processedImage
         # get에서 사용하도록 멤버변수에 저장 가능
-        # self.processedImage = binarizedImage
         # return binarizedImage
 
     def getPreprocessedImage(self) -> AbstractOCRImage:
@@ -43,9 +44,9 @@ class OCRImageFactory:
             raise ValueError("스캔본 이미지를 먼저 전처리한 후 OCR을 실행해주세요: setProcessedImage()")
         
         if self.OCREngine.lower() == "tesseract":
-            OCR = RecognizeOpticalChars(self.getPreprocessedImage)
+            OCR = RecognizeOpticalChars(self.processedImage)
         elif self.OCREngine.lower()  == "koreanOCR":
-            OCR = RecognizeOpticalKorean(self.getPreprocessedImage, self.dependencyPath)
+            OCR = RecognizeOpticalKorean(self.processedImage, self.dependencyPath)
         # elif self.OCREngine.lower() == "pororo":
             # OCR = RecognizeOpticalNaturalLang(self.getPreprocessedImage)
         else: 

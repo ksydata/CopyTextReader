@@ -10,12 +10,13 @@ class PreprocessImage(AbstractOCRImage):
         self.scanImage = scanImage
 
     def preprocessImageObject(self) -> numpy.array:
-        """이진화 전처리를 수행하는 메서드 """
+        """이진화 전처리를 수행하는 메서드"""
 
         imageArray = numpy.array(self.scanImage)
         # Pillow.Image.Image 객체를 OpenCV가 이해할 수 있도록 넘파이 배열로 변환
         # readImage = cv2.imread(imageArray)
-        
+       
+        # grayImage = cv2.cvtColor(self.scanImage, cv2.COLOR_BGR2GRAY)        
         grayImage = cv2.cvtColor(imageArray, cv2.COLOR_BGR2GRAY)
         # 글자 추출 전처리를 위해 흑백 처리
         # grayImage = self.scanImage.convert("L") 

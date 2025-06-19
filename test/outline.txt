@@ -18,6 +18,7 @@
     DBNet과 SAR의 조합은 정확도가 중요한 응용 환경
     에 적합하며, DBNet과 CRNN의 조합은 실시간 처리
     가 필요한 상황에서 효과적인 대안
+    Pororo
 
             ┌─────────────────────┐
             │ AbstractOCRImage    │

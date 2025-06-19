@@ -36,6 +36,7 @@ def test():
         print(f"{folderPath}는 유효한 폴더 경로가 아닙니다.").strip() 
         return
     ocrEngine = input("OCR 모델 엔진을 선택하세요: ")
+    dependencyPath = input("모델(의존성 패키지)) 경로를 입력하세요: ").strip()
 
     fileExtensions: List = [".pdf", ".tif", ".jpg", ".png"]
     
@@ -55,8 +56,7 @@ def test():
             for image in images:
             # for index, image in enumerate(images):
                 # print(f"{index+1}번째 이미지 전처리 및 OCR 수행")
-                
-                ocrfactory = OCRImageFactory(image)
+                ocrfactory = OCRImageFactory(image, ocrEngine, dependencyPath)
                 processedImage = ocrfactory.setPreprocessedImage()
                 # OCR 전처리 파이프라인 실행
 
@@ -76,10 +76,10 @@ def test():
                 else:
                     raise ValueError("")
                 
-                ocrText = ocrfactory.getPreprocessedImage(ocrEngine)
+                ocrText = ocrfactory.getPreprocessedImage()
                 print(f"OCR 추출 결과: \n{ocrText}")
                 
-                # break
+                break
                 # 테스트 목적이므로 첫 번째 이미지만 처리 후 break
 
         except Exception as e:
@@ -89,3 +89,27 @@ def test():
 
 if __name__ == "__main__":
     test()
+
+"""
+C:\CopyTextReader>"C:/Users/sooyeon Kang/AppData/Local/Programs/Python/Python310/python.exe" 
+c:/CopyTextReader/test/test.py
+
+테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
+OCR 모델 엔진을 선택하세요: koreanOCR | tesseract
+모델(의존성 패키지)) 경로를 입력하세요: C:/copyTextReader/dependency
+
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: OpenCV(4.11.0) :-1: error: (-5:Bad argument) in function 'cvtColor'
+> Overload resolution failed:
+>  - src data type = object is not supported
+>  - Expected Ptr<cv::UMat> for argument 'src'
+
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: OCRImageFactory.getPreprocessedImage() takes 1 positional argument but 2 were given
+
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: koreanOCR은 지원하지 않는 OCR 엔진입니다.
+"""
