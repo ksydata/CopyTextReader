@@ -92,7 +92,7 @@ if __name__ == "__main__":
 
 """
 C:\CopyTextReader>"C:/Users/sooyeon Kang/AppData/Local/Programs/Python/Python310/python.exe" 
-c:/CopyTextReader/test/test.py
+C:/CopyTextReader/test/test.py
 
 테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
 OCR 모델 엔진을 선택하세요: koreanOCR | tesseract
