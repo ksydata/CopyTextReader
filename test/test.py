@@ -18,25 +18,19 @@ import pytesseract
 # @https://github.com/tesseract-ocr/tessdata/blob/main/kor.traineddata
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\sooyeon Kang\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
-os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata" 
+os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata"
 # 한글 언어 모델을 위한 훈련 데이터 경로 강제 지정
-
-from ultralytics import YOLO
-from tensorflow.python.keras.models import load_model
-# python -m pip install --upgrade typing_extensions
-# from tensorflow import keras
-# from keras.models import load_model
 
 
 def test():
-    folderPath = input("테스트할 폴더 경로를 입력하세요: ").strip() 
+    folderPath = os.path.normpath(input("테스트할 폴더 경로를 입력하세요: ").strip())
     # C:/copyTextReader/data
     # saveFilePath = "C:/copyTextReader/data/test.png"
     if not os.path.isdir(folderPath):
         print(f"{folderPath}는 유효한 폴더 경로가 아닙니다.").strip() 
         return
     ocrEngine = input("OCR 모델 엔진을 선택하세요: ")
-    dependencyPath = input("모델(의존성 패키지)) 경로를 입력하세요: ").strip()
+    dependencyPath = os.path.normpath(input("모델(의존성 패키지)) 경로를 입력하세요: ").strip())
 
     fileExtensions: List = [".pdf", ".tif", ".jpg", ".png"]
     
@@ -112,4 +106,16 @@ OCR 모델 엔진을 선택하세요: koreanOCR | tesseract
 === 확장자 .jpg 테스트 중 ===
 .jpg 확장자에서 3개의 이미지 로딩 성공
 .jpg 처리 중 오류: koreanOCR은 지원하지 않는 OCR 엔진입니다.
+
+
+2025-07-05 17:28:35 | INFO | fairseq.tasks.text_to_speech | Please install tensorboardX: pip install tensorboardX
+테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
+OCR 모델 엔진을 선택하세요: pororo
+모델(의존성 패키지)) 경로를 입력하세요: False
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: cannot import name 'model_urls' from 'torchvision.models.vgg' (C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python310\lib\site-packages\torchvision\models\vgg.py)
+
+# pip uninstall torchvision
+# pip install torchvision==0.11.3
 """

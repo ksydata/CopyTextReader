@@ -4,6 +4,7 @@ from copyTextReader.ocrImage.preprocessImage import PreprocessImage
 from copyTextReader.ocrImage.binarizeImage import BinarizeImage
 from copyTextReader.ocrImage.recognizeOpticalChars import RecognizeOpticalChars
 from copyTextReader.ocrImage.recognizeOpticalKorean import RecognizeOpticalKorean
+from copyTextReader.ocrImage.recognizeOpticalNaturalLang import RecognizeOpticalNaturalLang
 
 from PIL import Image, ImageFilter
 
@@ -47,8 +48,8 @@ class OCRImageFactory:
             OCR = RecognizeOpticalChars(self.processedImage)
         elif self.OCREngine.lower()  == "koreanOCR":
             OCR = RecognizeOpticalKorean(self.processedImage, self.dependencyPath)
-        # elif self.OCREngine.lower() == "pororo":
-            # OCR = RecognizeOpticalNaturalLang(self.getPreprocessedImage)
+        elif self.OCREngine.lower() == "pororo":
+            OCR = RecognizeOpticalNaturalLang(self.getPreprocessedImage)
         else: 
             raise ValueError(f"{self.OCREngine}은 지원하지 않는 OCR 엔진입니다.")
 
