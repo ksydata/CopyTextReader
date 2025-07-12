@@ -80,6 +80,20 @@
     Author: kakaobrain Team SIGNALS
     Author-email: contact@kakaobrain.com
     License: Apache-2.0
-    Location: c:\users\sooyeon kang\appdata\local\programs\python\python310\lib\site-packages
+    Location: c:\users\sooyeon kang\appdata\local\programs\python\python39\lib\site-packages
     Requires: fairseq, g2p_en, joblib, kss, lxml, marisa-trie, nltk, pillow, sentence_transformers, torch, torchvision, transformers, wget, whoosh, word2word
+    Required-by:
+"""
+
+"""
+C:\Users\sooyeon Kang>python -m pip freeze > requirements.txt
+# Python 3.10에서 현재 설치된 패키지 목록 저장
+C:\WINDOWS\system32>cd C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39>python -m venv "C:\Users\sooyeon Kang\py39_env"
+#  Python 3.9로 가상환경 생성
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39>cd "C:\Users\sooyeon Kang\py39_env\Scripts"
+C:\Users\sooyeon Kang\py39_env\Scripts>activate
+# Python 3.9 가상환경 활성화
+(py39_env) C:\Users\sooyeon Kang\py39_env\Scripts>pip install --upgrade pip
+
 """

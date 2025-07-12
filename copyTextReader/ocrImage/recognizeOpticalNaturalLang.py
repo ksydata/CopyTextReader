@@ -4,9 +4,18 @@ from copyTextReader.abstractClass.abstractOCRImage import AbstractOCRImage
 import numpy
 import cv2
 import os
+
+import tempfile
+import uuid
 from PIL import Image
+
 from pororo import Pororo
 # Platform Of neuRal mOdels for natuRal language prOcessing
+from torchvision.models import resnet50, ResNet50_Weights
+
+from skimage import io, color, filters, transform
+from skimage.filters import threshold_otsu
+# python -m pip install tensorboardX, scikit-image
 
 
 class RecognizeOpticalNaturalLang(AbstractOCRImage):
@@ -23,14 +32,22 @@ class RecognizeOpticalNaturalLang(AbstractOCRImage):
     """
     
     def __init__(self, processedImage: numpy.ndarray):
+        # koreanOCR = Pororo(task = "ocr", lang = "ko")
+        # Pororo 초기화하는 클래스 변수
+
         """
         Parameters
         ----------
         processedImage: numpy.ndarray
             전처리된 이미지 (흑백/이진화 처리된 이미지)
         """
+        if not isinstance(processedImage, numpy.ndarray):
+            raise TypeError("processedImage는 numpy.ndarray 타입이어야 합니다.")
         self.processedImage = processedImage
-        self.koreanOCR = Pororo(task="ocr", lang="ko")
+        self.koreanOCR = Pororo(task = "ocr", lang = "ko")
+        # 클래스 변수 초기화
+        # if RecognizeOpticalNaturalLang.koreanOCR is None:
+            # RecognizeOpticalNaturalLang.koreanOCR = Pororo(task = "ocr", lang = "ko")
 
     def preprocessImageObject(self) -> str:
         """
@@ -40,10 +57,14 @@ class RecognizeOpticalNaturalLang(AbstractOCRImage):
         -------
         str : 이미지에서 감지된 텍스트 문자열
         """
-        pillowImage = Image.fromarray(self.processedImage)
-        # numpy 배열을 PIL 이미지로 변환
-        ocrResult = self.koreanOCR(pillowImage)
-        # Pororo OCR 실행
+        pillowImage = self.saveToTempFile(self.processedImage)
+        # 전처리된 이미지를 임시 파일로 저장한 뒤, Pororo에 경로로 전달
+
+        ocrResult = self.koreanOCR(pillowImage, detail = False)
+        # ocrResult = self.koreanOCR(pillowImage, detail = True)
+        # ocrResult = RecognizeOpticalNaturalLang.koreanOCR(pillowImage)
+        # self로 접근하여 클래스 변수인 Pororo OCR 실행
+        # 좌표값을 함께 반환
         
         if isinstance(ocrResult , list):
         # 각 글자영역 및 인식텍스트를 리스트 형식으로 반환되는 결과
@@ -52,3 +73,23 @@ class RecognizeOpticalNaturalLang(AbstractOCRImage):
         return str(ocrResult)
         # ocrResult가 리스트가 아닐 경우 문자열로 처리
 
+    @staticmethod
+    def saveToTempFile(imageArray: numpy.ndarray) -> str:
+        """
+        전처리된 Numpy 이미지 배열을 임시 JPG 파일로 저장하고 파일경로를 반환
+
+        Returns
+        -------
+        str : 임시 저장된 이미지 파일경로
+        """
+        pillowImage = Image.fromarray(imageArray)
+        # numpy 배열을 PIL 이미지로 변환
+        # [.jpg 처리 중 img 변수가 할당 전에 참조되었다는 오류] local variable 'img' referenced before assignment
+        # [cmd > cd C:/copyTextReader/] findstr /S /N "img" *.py
+        
+        tempFileName = f"ocr_temp_{uuid.uuid4().hex}.jpg"
+        tempFilePath = os.path.join(tempfile.gettempdir(), tempFileName)
+        pillowImage.save(tempFilePath)
+        # 이미지를 임시저장할 파일경로 설정 후 저장
+        
+        return tempFilePath

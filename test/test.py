@@ -8,6 +8,7 @@ from copyTextReader.factory.loadFileFactory import LoadFileFactory
 from copyTextReader.factory.ocrImageFactory import OCRImageFactory
 import os
 import numpy
+# python -m pip install numpy==1.24.3
 from typing import List
 
 from PIL import Image
@@ -17,8 +18,8 @@ import pytesseract
 # @https://github.com/UB-Mannheim/tesseract/wiki
 # @https://github.com/tesseract-ocr/tessdata/blob/main/kor.traineddata
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Users\sooyeon Kang\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
-os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata"
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Users\sooyeon Kang\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
+# os.environ["TESSDATA_PREFIX"] = r"C:\Program Files\Tesseract-OCR\tessdata"
 # 한글 언어 모델을 위한 훈련 데이터 경로 강제 지정
 
 
@@ -45,7 +46,7 @@ def test():
                 # print("첫 번째 이미지 미리보기를 실행합니다.")
                 # images[0].show()  
                 # image.save("privewSample.jpg")
-            # [생략] 샘플 이미지 OS의 뷰어로 열림
+            # [생략] 샘플 이미지 OS의 뷰어로 열람
             
             for image in images:
             # for index, image in enumerate(images):
@@ -68,7 +69,7 @@ def test():
                    # 전처리 결과 이미지 로컬에 저장
                    
                 else:
-                    raise ValueError("")
+                    raise ValueError("전처리된 이미지가 없습니다.")
                 
                 ocrText = ocrfactory.getPreprocessedImage()
                 print(f"OCR 추출 결과: \n{ocrText}")
@@ -78,44 +79,9 @@ def test():
 
         except Exception as e:
             print(f"{extension} 처리 중 오류: {e}")
+            continue
 
     print("=== \n테스트 완료=== ")
 
 if __name__ == "__main__":
     test()
-
-"""
-C:\CopyTextReader>"C:/Users/sooyeon Kang/AppData/Local/Programs/Python/Python310/python.exe" 
-C:/CopyTextReader/test/test.py
-
-테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
-OCR 모델 엔진을 선택하세요: koreanOCR | tesseract
-모델(의존성 패키지)) 경로를 입력하세요: C:/copyTextReader/dependency
-
-=== 확장자 .jpg 테스트 중 ===
-.jpg 확장자에서 3개의 이미지 로딩 성공
-.jpg 처리 중 오류: OpenCV(4.11.0) :-1: error: (-5:Bad argument) in function 'cvtColor'
-> Overload resolution failed:
->  - src data type = object is not supported
->  - Expected Ptr<cv::UMat> for argument 'src'
-
-=== 확장자 .jpg 테스트 중 ===
-.jpg 확장자에서 3개의 이미지 로딩 성공
-.jpg 처리 중 오류: OCRImageFactory.getPreprocessedImage() takes 1 positional argument but 2 were given
-
-=== 확장자 .jpg 테스트 중 ===
-.jpg 확장자에서 3개의 이미지 로딩 성공
-.jpg 처리 중 오류: koreanOCR은 지원하지 않는 OCR 엔진입니다.
-
-
-2025-07-05 17:28:35 | INFO | fairseq.tasks.text_to_speech | Please install tensorboardX: pip install tensorboardX
-테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
-OCR 모델 엔진을 선택하세요: pororo
-모델(의존성 패키지)) 경로를 입력하세요: False
-=== 확장자 .jpg 테스트 중 ===
-.jpg 확장자에서 3개의 이미지 로딩 성공
-.jpg 처리 중 오류: cannot import name 'model_urls' from 'torchvision.models.vgg' (C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python310\lib\site-packages\torchvision\models\vgg.py)
-
-# pip uninstall torchvision
-# pip install torchvision==0.11.3
-"""

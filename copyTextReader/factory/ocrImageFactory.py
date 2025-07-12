@@ -39,8 +39,8 @@ class OCRImageFactory:
         # get에서 사용하도록 멤버변수에 저장 가능
         # return binarizedImage
 
-    def getPreprocessedImage(self) -> AbstractOCRImage:
-        """OCR 엔진을 선택하여 이진 이미지 객체에서 추출한 텍스트를 반환하는 실행 메서드"""
+    def getPreprocessedImage(self) -> str:
+        """OCR 엔진을 선택하여 전처리된 이진 이미지 객체에서 추출한 텍스트를 반환하는 실행 메서드"""
         if self.processedImage is None:
             raise ValueError("스캔본 이미지를 먼저 전처리한 후 OCR을 실행해주세요: setProcessedImage()")
         
@@ -49,7 +49,7 @@ class OCRImageFactory:
         elif self.OCREngine.lower()  == "koreanOCR":
             OCR = RecognizeOpticalKorean(self.processedImage, self.dependencyPath)
         elif self.OCREngine.lower() == "pororo":
-            OCR = RecognizeOpticalNaturalLang(self.getPreprocessedImage)
+            OCR = RecognizeOpticalNaturalLang(self.processedImage)
         else: 
             raise ValueError(f"{self.OCREngine}은 지원하지 않는 OCR 엔진입니다.")
 

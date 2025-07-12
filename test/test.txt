@@ -1,0 +1,64 @@
+C:\CopyTextReader>"C:/Users/sooyeon Kang/AppData/Local/Programs/Python/Python310/python.exe" 
+C:/CopyTextReader/test/test.py
+
+테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
+OCR 모델 엔진을 선택하세요: koreanOCR | tesseract
+모델(의존성 패키지)) 경로를 입력하세요: C:/copyTextReader/dependency
+
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: OpenCV(4.11.0) :-1: error: (-5:Bad argument) in function 'cvtColor'
+> Overload resolution failed:
+>  - src data type = object is not supported
+>  - Expected Ptr<cv::UMat> for argument 'src'
+
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: OCRImageFactory.getPreprocessedImage() takes 1 positional argument but 2 were given
+
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: koreanOCR은 지원하지 않는 OCR 엔진입니다.
+
+
+2025-07-05 17:28:35 | INFO | fairseq.tasks.text_to_speech | Please install tensorboardX: pip install tensorboardX
+테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
+OCR 모델 엔진을 선택하세요: pororo
+모델(의존성 패키지)) 경로를 입력하세요: False
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+.jpg 처리 중 오류: cannot import name 'model_urls' from 'torchvision.models.vgg' (C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python310\lib\site-packages\torchvision\models\vgg.py)
+.jpg 처리 중 오류: No module named 'skimage'
+
+
+C:\CopyTextReader>"C:/Users/sooyeon Kang/AppData/Local/Programs/Python/Python39/python.exe" c:/CopyTextReader/test/test.py
+테스트할 폴더 경로를 입력하세요: C:/copyTextReader/data
+OCR 모델 엔진을 선택하세요: pororo
+모델(의존성 패키지)) 경로를 입력하세요: False
+
+=== 확장자 .jpg 테스트 중 ===
+.jpg 확장자에서 3개의 이미지 로딩 성공
+2025-07-06 10:31:51 | INFO | root | Downloading user-selected model...
+100% [........................................................................] 83152330 / 83152330
+2025-07-06 10:31:56 | INFO | root | Downloading user-selected model...
+100% [........................................................................] 76920376 / 76920376
+2025-07-06 10:32:06 | INFO | root | Downloading user-selected model...
+100% [..............................................................................] 92382 / 92382
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\torchvision\models\_utils.py:252: UserWarning: Accessing the model URLs via the internal dictionary of the module is deprecated since 0.13 and may be removed in the future. Please access them via the appropriate Weights Enum instead.
+  warnings.warn(
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
+  warnings.warn(msg)
+.jpg 처리 중 오류: 'function' object has no attribute '__array_interface__'
+
+===테스트 완료===
+
+
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\torchvision\models\_utils.py:252: UserWarning: Accessing the model URLs via the internal dictionary of the module is deprecated since 0.13 and may be removed in the future. Please access them via the appropriate Weights Enum instead.
+  warnings.warn(
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
+  warnings.warn(msg)
+.jpg 처리 중 오류: too many values to unpack (expected 2)
