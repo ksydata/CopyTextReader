@@ -57,21 +57,29 @@ class RecognizeOpticalNaturalLang(AbstractOCRImage):
         -------
         str : 이미지에서 감지된 텍스트 문자열
         """
-        pillowImage = self.saveToTempFile(self.processedImage)
+        imagePath = self.saveToTempFile(self.processedImage)
         # 전처리된 이미지를 임시 파일로 저장한 뒤, Pororo에 경로로 전달
 
-        ocrResult = self.koreanOCR(pillowImage, detail = False)
-        # ocrResult = self.koreanOCR(pillowImage, detail = True)
+        ocrResult = self.koreanOCR(imagePath, detail = True)
         # ocrResult = RecognizeOpticalNaturalLang.koreanOCR(pillowImage)
         # self로 접근하여 클래스 변수인 Pororo OCR 실행
         # 좌표값을 함께 반환
         
         if isinstance(ocrResult , list):
         # 각 글자영역 및 인식텍스트를 리스트 형식으로 반환되는 결과
-            return "\n".join([item["text"] for item in ocrResult ])
+            try:
+                return "\n".join([
+                    item["text"]
+                    for item in ocrResult
+                    if isinstance(item, dict) and "text" in item
+                ])
             # 인식된 영역에서 텍스트만 추출하여 줄바꿈 연산자인 "\n"으로 연결
-        return str(ocrResult)
-        # ocrResult가 리스트가 아닐 경우 문자열로 처리
+            except Exception as e:
+                print(f"[OCR 리스트 처리 오류] {e}")
+                return str(ocrResult)
+            # ocrResult가 리스트가 아닐 경우 문자열로 처리
+        else:
+            return str(ocrResult)
 
     @staticmethod
     def saveToTempFile(imageArray: numpy.ndarray) -> str:

@@ -1,4 +1,5 @@
 # ./copyTextReader/test/test.py
+
 import sys
 sys.path.append("C:/CopyTextReader")
 # 최상위 프로젝트 루트 경로를 추가해야 Python이 모듈 인식 가능
@@ -41,6 +42,7 @@ def test():
             loader = LoadFileFactory.loadImage(folderPath, extension)
             images = loader.uploadData()
             print(f"{extension} 확장자에서 {len(images)}개의 이미지 로딩 성공")
+            # print(images) # [TEST CODE]
         
             # if images:
                 # print("첫 번째 이미지 미리보기를 실행합니다.")
@@ -51,6 +53,9 @@ def test():
             for image in images:
             # for index, image in enumerate(images):
                 # print(f"{index+1}번째 이미지 전처리 및 OCR 수행")
+                # image = imageTuple[0]
+                # print(image) # [TEST CODE]
+
                 ocrfactory = OCRImageFactory(image, ocrEngine, dependencyPath)
                 processedImage = ocrfactory.setPreprocessedImage()
                 # OCR 전처리 파이프라인 실행
@@ -71,10 +76,13 @@ def test():
                 else:
                     raise ValueError("전처리된 이미지가 없습니다.")
                 
-                ocrText = ocrfactory.getPreprocessedImage()
+                ocrText = ocrfactory.getOCRText()
+                # ocrText = ocrfactory.getPreprocessedImage()
+                # test.py에서 unpacking을 시도한 곳이 에러의 원인
+                # loader.uploadData()의 반환값이 List[Tuple[Image, str]] 형식이기 때문에 에러 발생
                 print(f"OCR 추출 결과: \n{ocrText}")
                 
-                break
+                # break
                 # 테스트 목적이므로 첫 번째 이미지만 처리 후 break
 
         except Exception as e:

@@ -62,3 +62,5 @@ C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\t
 C:\Users\sooyeon Kang\AppData\Local\Programs\Python\Python39\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
   warnings.warn(msg)
 .jpg 처리 중 오류: too many values to unpack (expected 2)
+.jpg 처리 중 오류: local variable 'image' referenced before assignment
+

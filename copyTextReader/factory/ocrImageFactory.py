@@ -1,4 +1,5 @@
 # ./copyTextReader/factory/ocrImageFactory.py
+
 from copyTextReader.abstractClass.abstractOCRImage import AbstractOCRImage
 from copyTextReader.ocrImage.preprocessImage import PreprocessImage
 from copyTextReader.ocrImage.binarizeImage import BinarizeImage
@@ -24,7 +25,7 @@ class OCRImageFactory:
         self.dependencyPath = dependencyPath
         
     def setPreprocessedImage(self) -> AbstractOCRImage:
-        """전처리(preprocess), 이진화(binarize), 후처리(mophology)를 수행하고 이진 이미지를 반환하는 실행 메서드"""
+        """전처리(preprocess), 이진화(binarize), 후처리(morphology)를 수행하고 이진 이미지를 반환하는 실행 메서드"""
 
         # 흐림 블러링, 흑백 변환
         preprocesser = PreprocessImage(self.scanImage)
@@ -39,14 +40,20 @@ class OCRImageFactory:
         # get에서 사용하도록 멤버변수에 저장 가능
         # return binarizedImage
 
-    def getPreprocessedImage(self) -> str:
+    def getProcessedImage(self) -> AbstractOCRImage:
+        """전처리된 이진 이미지를 그대로 반환하는 메서드 (디버깅 또는 별도 활용 목적)"""
+        if self.processedImage is None:
+            raise ValueError("이진화된 이미지가 없습니다. setPreprocessedImage()를 먼저 호출하세요.")
+        return self.processedImage
+
+    def getOCRText(self):
         """OCR 엔진을 선택하여 전처리된 이진 이미지 객체에서 추출한 텍스트를 반환하는 실행 메서드"""
         if self.processedImage is None:
-            raise ValueError("스캔본 이미지를 먼저 전처리한 후 OCR을 실행해주세요: setProcessedImage()")
+            raise ValueError("스캔본 이미지를 먼저 전처리한 후 OCR을 실행하세요: setPreprocessedImage()")
         
         if self.OCREngine.lower() == "tesseract":
             OCR = RecognizeOpticalChars(self.processedImage)
-        elif self.OCREngine.lower()  == "koreanOCR":
+        elif self.OCREngine.lower() == "koreanocr":
             OCR = RecognizeOpticalKorean(self.processedImage, self.dependencyPath)
         elif self.OCREngine.lower() == "pororo":
             OCR = RecognizeOpticalNaturalLang(self.processedImage)
