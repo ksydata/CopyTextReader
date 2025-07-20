@@ -1,0 +1,44 @@
+import json
+import re
+
+class ResidentInfoExtractor:
+    def __init__(self, ocr_results):
+        self.ocr_results = ocr_results
+        self.result = {
+            "초본명": "",
+            "성명": "",
+            "생년월일-주민번호 앞자리-성별": "",
+            "현주소": "",
+            "발급일자": ""
+        }
+
+    def extract(self):
+        for item in self.ocr_results:
+            text = item["text"].strip()
+            bbox = item["bbox"]
+            _, y1, _, y2 = bbox
+            center_y = (y1 + y2) / 2
+
+            # 초본명
+            if 50 <= center_y <= 150 and any(kw in text for kw in ["초본", "말소자", "재외국민", "거주불명자"]):
+                self.result["초본명"] = text
+
+            # 성명
+            elif 180 <= center_y <= 250:
+                self.result["성명"] = text
+
+            # 생년월일-주민번호 앞자리-성별
+            elif 280 <= center_y <= 400 and re.search(r"\d{6}-\d", text):
+                self.result["생년월일-주민번호 앞자리-성별"] = text
+
+            # 현주소
+            elif 420 <= center_y <= 600:
+                self.result["현주소"] += text + " "
+
+            # 발급일자
+            elif 900 <= center_y <= 1100 and re.search(r"\d{4}년\s?\d{1,2}월\s?\d{1,2}일", text):
+                self.result["발급일자"] = text
+
+        # 정제
+        self.result["현주소"] = self.result["현주소"].strip()
+        return self.result

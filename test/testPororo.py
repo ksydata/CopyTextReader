@@ -101,20 +101,21 @@ class testPororo:
                 # return str(ocrResult)
             # ocrResult가 리스트가 아닐 경우 문자열로 처리
         # else: return str(ocrResult)
+        return str(ocrResult)
     
         # 아래 영역 좌표는 이미지마다 조정 필요, (x_min, y_min, x_max, y_max) 순서
-        issuedDate_area = (1700, 700, 3600, 900)
-        name_area = (300, 1150, 900, 1300)
-        residentNum_area = (2900, 1150, 4300, 1300)
-        address_area = (100, 2600, 2000, 2900)
-        certificateType_area = (2000, 100, 4000, 700)
+        # issuedDate_area = (1700, 700, 3600, 900)
+        # name_area = (300, 1150, 900, 1300)
+        # residentNum_area = (2900, 1150, 4300, 1300)
+        # address_area = (100, 2600, 2000, 2900)
+        # certificateType_area = (2000, 100, 4000, 700)
 
         # 각 영역별 텍스트 추출
-        issuedDate = extractTextByArea(ocrResult, issuedDate_area)
-        personName = extractTextByArea(ocrResult, name_area)
-        residentNum = extractTextByArea(ocrResult, residentNum_area)
-        address = extractTextByArea(ocrResult, address_area)
-        certificateType = extractTextByArea(ocrResult, certificateType_area)
+        # issuedDate = extractTextByArea(ocrResult, issuedDate_area)
+        # personName = extractTextByArea(ocrResult, name_area)
+        # residentNum = extractTextByArea(ocrResult, residentNum_area)
+        # address = extractTextByArea(ocrResult, address_area)
+        # certificateType = extractTextByArea(ocrResult, certificateType_area)
 
         # 디버깅용: 영역별 추출값 출력 (필요 시 주석 해제)
         # print(f"발급일자 영역 텍스트: '{issuedDate}'")
@@ -123,14 +124,14 @@ class testPororo:
         # print(f"주소 영역 텍스트: '{address}'")
         # print(f"초본 종류 영역 텍스트: '{certificateType}'")
 
-        result = (
-            f"발급일자: {issuedDate}\n"
-            f"성명: {personName}\n"
-            f"주민등록번호: {residentNum}\n"
-            f"주소: {address}\n"
-            f"초본 종류: {certificateType}\n"
-        )
-        return result
+        # result = (
+           #  f"발급일자: {issuedDate}\n"
+           #  f"성명: {personName}\n"
+           #  f"주민등록번호: {residentNum}\n"
+           #  f"주소: {address}\n"
+           #  f"초본 종류: {certificateType}\n"
+        # )
+        # return result
 
 
 if __name__ == "__main__":
